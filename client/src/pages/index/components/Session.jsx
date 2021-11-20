@@ -1,5 +1,7 @@
 import styles from './Session.module.css'
 import React from "react"
+import { socket } from '../../../App';
+
 
 
 class Session extends React.Component {
@@ -17,9 +19,13 @@ class Session extends React.Component {
     // When type of sessions changes (e.g work -> break)
     if (prev.time !== this.props.time) {
       this.setState({time_left: this.props.time})
-      this.stop()
     }
 
+    if (this.state.time_left === 0) {
+      this.props.updateStats()
+      this.setState({width: '100%', time_left: this.props.time})
+      this.stop()
+    } 
     console.log(this.state)
   }
   
@@ -34,17 +40,34 @@ class Session extends React.Component {
       if (this.state.time_left > 0) {
         this.setState({time_left: this.state.time_left - 1})
         this.scaleWidth(this.state.time_left, 0, 100, 0, this.props.time)
-      } else {
-        // Save state, send request to api
-        
       }
     }, 1000)
+    if (this.props.user) {
+      socket.emit('receive session', {
+        time_left: this.state.time_left,
+        active: true,
+        display: this.props.display,
+        user: this.props.user,
+        times: this.props.session.times,
+        name: this.props.session.name
+      })
+    }
     this.setState({timer: timer})
   }
 
   stop() {
     clearInterval(this.state.timer)
     this.setState({timer: null})
+    if (this.props.user) {
+      socket.emit('receive session', {
+        time_left: this.state.time_left,
+        active: false,
+        display: this.props.display,
+        user: this.props.user,
+        times: this.props.session.times,
+        name: this.props.session.name
+      })
+    }
   }
 
   // e.g 300 -> 05:00
@@ -109,13 +132,12 @@ class PomodoroNav extends React.Component {
             Work
           </span>
           {this.props.time_left && this.props.display === 'work'
-            ? <div style={{
-                'backgroundColor': 'var(--color-accent)',
-                'width': this.props.width,
-                'transition': 'var(--speed) ease',
-                'borderTopLeftRadius': 'var(--border-radius)',
-                'borderTopRightRadius': 'var(--border-radius)'
-              }}>
+            ? <div
+                className={styles.fill} 
+                style={{
+                  'width': this.props.width,
+                }}
+              >
               </div>
             : null
           }
@@ -124,17 +146,20 @@ class PomodoroNav extends React.Component {
             () => this.props.setDisplay('break')
           }
         >
-          <span style={{
-            fontWeight: this.props.display === 'break' ? '700' : '300'
-          }}>
+          <span 
+            style={{
+              fontWeight: this.props.display === 'break' ? '700' : '300'
+            }}
+          >
             Break
           </span>
           {this.props.time_left && this.props.display === 'break'
-            ? <div style={{
-                'backgroundColor': 'var(--color-accent)',
-                'width': this.props.width,
-                'transition': 'var(--speed) ease',
-              }}>
+            ? <div
+                className={styles.fill} 
+                style={{
+                  'width': this.props.width,
+                }}
+              >
               </div>
             : null
           }
@@ -149,13 +174,12 @@ class PomodoroNav extends React.Component {
             Longer Break
           </span>
           {this.props.time_left && this.props.display === 'lbreak'
-            ? <div style={{
-                'backgroundColor': 'var(--color-accent)',
-                'width': this.props.width,
-                'transition': 'var(--speed) ease',
-                'borderBottomLeftRadius': 'var(--border-radius)',
-                'borderBottomRightRadius': 'var(--border-radius)'
-              }}>
+            ? <div 
+                className={styles.fill} 
+                style={{
+                  'width': this.props.width,
+                }}
+              >
               </div>
             : null
           }

@@ -5,6 +5,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
+import io from 'socket.io-client'
 
 import RegisterPage from './pages/register/RegisterPage'
 import LoginPage from './pages/login/LoginPage'
@@ -12,6 +13,7 @@ import HomePage from './pages/index/HomePage'
 
 const axios = require('axios')
 
+export const socket = io('http://localhost:5000/')
 
 class App extends React.Component {
   constructor() {

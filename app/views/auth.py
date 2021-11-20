@@ -2,7 +2,7 @@ from app import db
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, set_access_cookies, unset_jwt_cookies, current_user, jwt_required
-from app.models import User
+from app.models import User, Settings
 from app.schemas import CreateRegisterSchema, CreateLoginSchema
 
 
@@ -59,6 +59,10 @@ def register():
   )
   user.set_avatar()
   db.session.add(user)
+  db.session.commit()
+  
+  settings = Settings(user_id=user.id)
+  db.session.add(settings)
   db.session.commit()
 
   return jsonify({

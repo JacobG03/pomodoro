@@ -12,11 +12,7 @@ def disconnect():
   print('Client disconnected')
 
 
-@socketio.on('add session')
+@socketio.on('receive session')
 def receive_session(data):
+  print(data)
   emit('add session', data, broadcast=True)
-
-
-@socketio.on('delete session')
-def delete_session(data):
-  emit('delete session', data, broadcast=True)

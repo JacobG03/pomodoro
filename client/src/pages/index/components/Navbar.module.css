@@ -37,3 +37,11 @@
   width: 100%;
   border-radius: var(--border-radius);
 }
+
+.left > a > h1 {
+  color: var(--color-accent-dark);
+}
+
+.left:hover a > h1 {
+  color: var(--color-accent);
+}

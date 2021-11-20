@@ -16,8 +16,8 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-main);
   border-radius: var(--border-radius);
+  gap: 0.25rem;
 }
 
 .top > div {
@@ -31,15 +31,26 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: 300;
+  border-radius: var(--border-radius);
   transition: var(--speed) ease;
+  background-color: var(--color-main);
+  box-shadow: var(--depth),
+              var(--depth-shadow);
 }
 
-.top > div > div {
+.fill {
   position: absolute;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
+  background-color: var(--color-accent-dark);
+  border-radius: var(--border-radius);
+  transition: 200ms;
+}
+
+.top > div:hover .fill {
+  background-color: var(--color-accent);
 }
 
 .session {
@@ -63,6 +74,13 @@
 
 .session > h4 {
   font-style: italic;
+}
+
+.session > button {
+  font-size: 1.5rem;
+  padding: 1rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 
 .otherNav {
