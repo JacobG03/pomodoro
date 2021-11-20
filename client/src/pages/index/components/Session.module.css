@@ -1,0 +1,22 @@
+.session {
+  width: 100%;
+  height: calc(80vh - 12rem);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.session > h1 {
+  font-weight: 800;
+}
+
+.session > span {
+  font-size: 4rem;
+  font-weight: 300;
+}
+
+.session > h4 {
+  font-style: italic;
+}
