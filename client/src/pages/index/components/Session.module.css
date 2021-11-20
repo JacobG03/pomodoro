@@ -1,7 +1,6 @@
 .session {
   width: 100%;
   height: calc(80vh - 12rem);
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

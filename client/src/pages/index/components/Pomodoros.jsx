@@ -2,6 +2,7 @@ import styles from './Pomodoros.module.css'
 import React from 'react'
 
 import Session from './Session'
+import OtherPomodoros from './OtherPomodoros'
 
 
 class Pomodoros extends React.Component {
@@ -28,34 +29,48 @@ class Pomodoros extends React.Component {
   
   render() {
     return (
-      <div className={styles.pomodoros}>
-        <div className={styles.top}>
-          <div className={styles[`${this.state.display === 'work' ? 'highlight': ''}`]}>
-            <span onClick={
-              () => this.setState({display: 'work'})
-            }>
-              Work
-            </span>
-          </div>
-          <div className={styles[`${this.state.display === 'break' ? 'highlight': ''}`]}>
-            <span onClick={
-              () => this.setState({display: 'break'})
-            }>
-              Break
-            </span>
-          </div>
-          <div className={styles[`${this.state.display === 'lbreak' ? 'highlight': ''}`]}>
-            <span onClick={
-              () => this.setState({display: 'lbreak'})
-            }>
-              Longer Break
-            </span>
+      <div className='wrapper'>
+        <div className={styles.main}>
+          <div className={styles.pomodoros}>
+            <div className={styles.top}>
+              <div 
+                className={styles[`${this.state.display === 'work' ? 'highlight': ''}`]}
+                onClick={
+                  () => this.setState({display: 'work'})
+                }
+              >
+                <span>
+                  Work
+                </span>
+              </div>
+              <div
+                className={styles[`${this.state.display === 'break' ? 'highlight': ''}`]}
+                onClick={
+                  () => this.setState({display: 'break'})
+                }
+              >
+                <span>
+                  Break
+                </span>
+              </div>
+              <div 
+                className={styles[`${this.state.display === 'lbreak' ? 'highlight': ''}`]}
+                onClick={
+                  () => this.setState({display: 'lbreak'})
+                }
+              >
+                <span>
+                  Longer Break
+                </span>
+              </div>
+            </div>
+            <Session 
+              session={this.state.sessions[this.state.display]}
+              time={this.props.settings[`${this.state.display}_time`] * 60}
+            />
+            <OtherPomodoros />
           </div>
         </div>
-        <Session 
-          session={this.state.sessions[this.state.display]}
-          time={this.props.settings[`${this.state.display}_time`] * 60}
-        />
       </div>
     )
   }

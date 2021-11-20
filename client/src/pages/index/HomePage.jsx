@@ -40,15 +40,13 @@ class HomePage extends React.Component {
           user={this.props.user}
           signOut={this.props.signOut}
         />
-        <div className='wrapper'>
-          {this.state.settings
-          ? <Pomodoros 
-              settings={this.state.settings}
-              user={this.state.user}
-            />
-          : <span>Loading pomodoros settings</span>
-          }
-        </div>
+        {this.state.settings
+        ? <Pomodoros 
+            settings={this.state.settings}
+            user={this.state.user}
+          />
+        : <span>Loading pomodoros settings</span>
+        }
       </>
     )
   }

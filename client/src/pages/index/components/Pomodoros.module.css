@@ -1,38 +1,46 @@
 .pomodoros {
   width: 100%;
-  height: fit-content;
-  padding: 1rem;
+  height: calc(100vh - 8rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
 }
 
 .top {
-  width: 100%;
+  width: 75%;
   height: fit-content;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
   background-color: var(--color-main);
   border-radius: var(--border-radius);
 }
 
 .top > div {
-  flex-grow: 1;
   width: 100%;
-  height: 4rem;
+  height: 3rem;
+  padding: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 300;
+  transition: var(--speed) ease;
 }
 
+
 .top > :nth-child(1) {
+  border-top-right-radius: var(--border-radius);
   border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
 }
 
 .top > :nth-child(3) {
-  border-top-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
   text-align: center;
 }
@@ -40,5 +48,4 @@
 .top > div.highlight {
   background-color: var(--color-accent);
   font-weight: 700;
-  transition: var(--speed);
 }
