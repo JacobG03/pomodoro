@@ -15,7 +15,7 @@ def get_settings():
   if not current_user:
     return jsonify({
       'settings': {
-        'work_time': 25,
+        'work_time': 2,
         'break_time': 5,
         'lbreak_time': 10,
         'lbreak_interval': 4

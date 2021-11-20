@@ -1,9 +1,54 @@
-.session {
+.pomodoro {
   width: 100%;
-  height: calc(80vh - 12rem);
+  min-height: calc(90vh - 8rem);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main {
+  width: 100%;
+  height: fit-content;
+}
+
+.top {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-main);
+  border-radius: var(--border-radius);
+}
+
+.top > div {
+  position: relative;
+  width: 100%;
+  height: 3rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 300;
+  transition: var(--speed) ease;
+}
+
+.top > div > div {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.session {
+  width: 100%;
+  min-height: calc(90vh - 17rem);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
   justify-content: space-evenly;
 }
 
@@ -18,4 +63,11 @@
 
 .session > h4 {
   font-style: italic;
+}
+
+.otherNav {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

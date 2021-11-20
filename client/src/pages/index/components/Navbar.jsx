@@ -20,7 +20,6 @@ function Navbar(props) {
                     <div className={styles.avatar}>
                       <img src={props.user.avatar} alt={`${props.user.username}'s avatar`}/>
                     </div>
-              
                   </>
                 : <>
                     <Link to='login'>

@@ -11,9 +11,7 @@ class OtherPomodoros extends React.Component {
   render() {
     return (
       <div className={styles.otherpomodoros}>
-        <div className={styles.top}>
-          <h1>Other Pomodoros</h1>
-        </div>
+        <h1>Other Pomodoros here</h1>
       </div>
     )
   }

@@ -1,4 +1,3 @@
-import styles from './HomePage.module.css'
 import React from 'react';
 
 import Navbar from './components/Navbar';
