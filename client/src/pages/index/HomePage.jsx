@@ -27,7 +27,6 @@ class HomePage extends React.Component {
     axios.get('/settings')
     .then(res => {
       this.setState({settings: res.data.settings})
-      console.log(this.state.settings)
     })
     .catch(error => console.log(error))
   }

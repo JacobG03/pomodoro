@@ -17,12 +17,20 @@ class OtherPomodoros extends React.Component {
     this.syncSessions()
     this.connectSocket()
     this.socket.on('sync sessions', data => {
-      console.log(data)
       this.setState({sessions: data})
     })
   }
 
+  componentDidUpdate(prev) {
+    if (prev.user !== this.props.user) {
+      this.syncSessions()
+    }
+  }
+
   syncSessions() {
+    if (this.props.user) {
+      this.socket.emit('delete session', {username: this.props.user.username})
+    }
     this.socket.emit('req all sessions')
   }
 

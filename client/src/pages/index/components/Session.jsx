@@ -22,8 +22,18 @@ class Session extends React.Component {
     }
     // on display change
     if (prev.display !== this.props.display) {
-      this.setState({width: '100%', time_left: this.props.time})
-      this.stop()
+      clearInterval(this.state.timer)
+      this.setState({width: '100%', time_left: this.props.time, timer: null})
+      if (this.props.user) {
+        this.socket.emit('receive session', {
+          time_left: this.props.time,
+          active: false,
+          display: this.props.display,
+          user: this.props.user,
+          times: this.props.session.times,
+          name: this.props.session.name
+        })
+      }
     }
     // updates sessions, restarts timer
     if (this.state.time_left === 0) {
@@ -34,9 +44,9 @@ class Session extends React.Component {
     // deletes session on user logout
     if (prev.user !== this.props.user && !this.props.user) {
       this.socket.emit('delete session', {username: prev.user.username})
+      this.stop()
     }
   }
-
   
   // Credits: https://stackoverflow.com/a/31687097/15760175
   scaleWidth(unscaledNum, minAllowed, maxAllowed, min, max) {
