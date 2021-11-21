@@ -1,30 +1,52 @@
 import styles from './OtherPomodoros.module.css'
 import React from 'react'
-import { socket } from '../../../App'
+import { io } from 'socket.io-client'
 
 
 class OtherPomodoros extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      sessions: []
+      sessions: [],
     }
+    this.socket = io('http://localhost:5000/');
   }
 
   componentDidMount() {
-    socket.on('add session', data => {
-      if (this.props.user) {
-        console.log(data)
+    this.socket.open()
+    this.syncSessions()
+    this.connectSocket()
+  }
+
+  syncSessions() {
+    this.socket.emit('get all sessions')
+    this.socket.on('sync sessions', data => {
+      this.setState({sessions: data})
+    })
+  }
+
+  connectSocket() {
+    this.socket.on('add session', data => {
+      console.log('adding sessions')
+      let add = true
+      for (let i = 0; i < this.state.sessions.length; i++) {
+        if (this.state.sessions[i].user.username === data.user.username) {
+          let new_sessions = this.state.sessions
+          new_sessions[i] = data
+          add = false
+          this.setState({sessions: new_sessions}) 
+        } 
+      }
+      if (add) {
+        let new_sessions = this.state.sessions
+        new_sessions.push(data)
+        this.setState({sessions: new_sessions})
       }
     })
   }
 
-  componentDidUpdate() {
-    console.log(this.state.sessions)
-  }
-
   componentWillUnmount() {
-    socket.disconnect()
+    this.socket.close();
   }
 
   render() {
@@ -47,6 +69,7 @@ class OtherPomodoro extends React.Component {
     return (
       <div>
         <span>{this.props.session.user.username}</span>
+        <span>{this.props.session.time_left}</span>
       </div>
     )
   }

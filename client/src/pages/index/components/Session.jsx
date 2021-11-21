@@ -1,7 +1,6 @@
 import styles from './Session.module.css'
 import React from "react"
-import { socket } from '../../../App';
-
+import { io } from 'socket.io-client'
 
 
 class Session extends React.Component {
@@ -12,6 +11,7 @@ class Session extends React.Component {
       timer: null,
       width: null,
     }
+    this.socket = io('http://localhost:5000/')
     this.scaleWidth.bind(this)
   }
   
@@ -20,13 +20,12 @@ class Session extends React.Component {
     if (prev.time !== this.props.time) {
       this.setState({time_left: this.props.time})
     }
-
+    // updates sessions, restarts timer
     if (this.state.time_left === 0) {
       this.props.updateStats()
       this.setState({width: '100%', time_left: this.props.time})
       this.stop()
     } 
-    console.log(this.state)
   }
   
   // Credits: https://stackoverflow.com/a/31687097/15760175
@@ -43,7 +42,7 @@ class Session extends React.Component {
       }
     }, 1000)
     if (this.props.user) {
-      socket.emit('receive session', {
+      this.socket.emit('receive session', {
         time_left: this.state.time_left,
         active: true,
         display: this.props.display,
@@ -59,7 +58,7 @@ class Session extends React.Component {
     clearInterval(this.state.timer)
     this.setState({timer: null})
     if (this.props.user) {
-      socket.emit('receive session', {
+      this.socket.emit('receive session', {
         time_left: this.state.time_left,
         active: false,
         display: this.props.display,
