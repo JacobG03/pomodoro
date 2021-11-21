@@ -30,6 +30,7 @@ class HomePage extends React.Component {
     })
     .catch(error => console.log(error))
   }
+  
 
   render () {
     return (

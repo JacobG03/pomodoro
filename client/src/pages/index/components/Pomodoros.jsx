@@ -34,7 +34,7 @@ class Pomodoros extends React.Component {
 
   updateStats = () => {
     let new_sessions = this.state.sessions
-    new_sessions[this.state.display].times = this.state.sessions[this.state.display].times +1
+    new_sessions[this.state.display].times = this.state.sessions[this.state.display].times + 1
     this.setState({sessions: new_sessions})
     // If logged in save in database
   }
@@ -49,6 +49,7 @@ class Pomodoros extends React.Component {
           display={this.state.display}
           updateStats={this.updateStats}
           user={this.props.user}
+          settings={this.props.settings}
         />
         <OtherSessions 
           user={this.props.user}

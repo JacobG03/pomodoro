@@ -13,13 +13,28 @@ class Session extends React.Component {
     }
     this.socket = io('http://localhost:5000/')
     this.scaleWidth.bind(this)
+    this.start.bind(this)
+    this.stop.bind(this)
   }
-  
+
   componentDidUpdate(prev) {
+    // when timer ends -> updates sessions, restarts timer
+    if (this.state.time_left === 0 && this.props.display === prev.display) {
+      this.setState({timer: null, width: '100%', time_left: this.props.time})
+      if (this.props.display === 'work') {
+        if (this.props.session.times % this.props.settings.lbreak_interval) {
+          this.props.setDisplay('lbreak')
+        } else {
+          this.props.setDisplay('break')
+        }
+      } else {
+        this.props.setDisplay('work')
+      }
+      this.props.updateStats()
+    }
     // on display change -> update session, reset timer
     if (prev.display !== this.props.display) {
       clearInterval(this.state.timer)
-      this.setState({width: '100%', time_left: this.props.time, timer: null})
       if (this.props.user) {
         this.socket.emit('receive session', {
           time_left: this.props.time,
@@ -30,33 +45,33 @@ class Session extends React.Component {
           name: this.props.session.name
         })
       }
+      this.setState({width: '100%', time_left: this.props.time, timer: null})
     }
-    // when timer ends -> updates sessions, restarts timer
-    if (this.state.time_left === 0) {
-      this.props.updateStats()
-      this.setState({width: '100%', time_left: this.props.time})
-      this.stop()
-    } 
     // when user logs out -> deletes session
-    if (prev.user !== this.props.user && !this.props.user) {
-      this.socket.emit('delete session', {username: prev.user.username})
-      this.stop()
+    if (prev.settings !== this.props.settings) {
+      clearInterval(this.state.timer)
+      if (prev.user) {
+        this.socket.emit('delete session', {username: prev.user.username})
+      }
+      this.setState({time_left: this.props.time, width: '100%', timer: null})
+      return
+    }
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.state.timer)
+    if (this.props.user) {
+      this.socket.emit('delete session', {username: this.props.user.username})
     }
   }
   
   // Credits: https://stackoverflow.com/a/31687097/15760175
   scaleWidth(unscaledNum, minAllowed, maxAllowed, min, max) {
     let outcome = (maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed;
-    this.setState({width: `${outcome}%`})
+    return `${outcome}%`
   }
-
+  
   start() {
-    let timer = setInterval(() => {
-      if (this.state.time_left > 0) {
-        this.setState({time_left: this.state.time_left - 1})
-        this.scaleWidth(this.state.time_left, 0, 100, 0, this.props.time)
-      }
-    }, 1000)
     if (this.props.user) {
       this.socket.emit('receive session', {
         time_left: this.state.time_left,
@@ -67,12 +82,22 @@ class Session extends React.Component {
         name: this.props.session.name
       })
     }
+
+    let timer = setInterval(() => {
+      if (this.state.time_left > 0) {
+        this.setState({
+          time_left: this.state.time_left - 1,
+          width: this.scaleWidth(this.state.time_left, 0, 100, 0, this.props.time)
+        })
+      }
+    }, 1000)
+    // send session
     this.setState({timer: timer})
+    return
   }
 
   stop() {
     clearInterval(this.state.timer)
-    this.setState({timer: null})
     if (this.props.user) {
       this.socket.emit('receive session', {
         time_left: this.state.time_left,
@@ -83,6 +108,8 @@ class Session extends React.Component {
         name: this.props.session.name
       })
     }
+    this.setState({timer: null})
+    return
   }
 
   // e.g 300 -> 05:00
@@ -94,9 +121,11 @@ class Session extends React.Component {
         min += 1
         sec = i
       }
+      // if last iteration still has a minute left
       if (sec >= 60) {
         sec -= 60
       }
+    // in only seconds left 
     } else {
       min = 0
       sec = this.state.time_left

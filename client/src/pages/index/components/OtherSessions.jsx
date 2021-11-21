@@ -13,35 +13,30 @@ class OtherSessions extends React.Component {
   }
 
   componentDidMount() {
-    this.socket.open()
-    this.syncSessions()
-    this.connectSocket()
-    this.socket.on('sync sessions', data => {
-      this.setState({sessions: data})
-    })
+    this.socket.emit('req all sessions')
+    this.connectSockets()
   }
 
   componentDidUpdate(prev) {
-    if (prev.user !== this.props.user) {
-      this.syncSessions()
+    if (prev.user !== this.props.user && prev.user) {
+      this.socket.close()
+      this.connectSockets()
+      this.socket.emit('delete session', {username: prev.user.username})
     }
-  }
-
-  syncSessions() {
-    if (this.props.user) {
-      this.socket.emit('delete session', {username: this.props.user.username})
-    }
-    this.socket.emit('req all sessions')
-  }
-
-  connectSocket() {
-    this.socket.on('add sessions', sessions => {
-      this.setState({sessions: sessions})
-    })
   }
 
   componentWillUnmount() {
     this.socket.close();
+  }
+
+  connectSockets() {
+    this.socket.open()
+    this.socket.on('sync sessions', data => {
+      this.setState({sessions: data})
+    })
+    this.socket.on('add sessions', sessions => {
+      this.setState({sessions: sessions})
+    })
   }
 
   render() {
