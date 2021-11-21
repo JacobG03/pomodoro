@@ -114,7 +114,7 @@ class Session extends React.Component {
   render() {
     return (
       <div className={styles.pomodoro}>
-        <PomodoroNav 
+        <SessionTop 
           setDisplay={this.props.setDisplay}
           display={this.props.display}
           width={this.state.width}
@@ -129,83 +129,46 @@ class Session extends React.Component {
           : <button onClick={() => this.start()}>Start</button>
           }
         </div>
-        <div className={styles.otherNav}>
-            <h1>Other Pomodoros</h1>
+        <div className={styles.otherSessions}>
+          <h1>Other Sessions</h1>
         </div>
       </div>
     )
   }
 }
 
-
-class PomodoroNav extends React.Component {
-  render() {
-    return (
-      <div className={styles.top}>
-        <div 
-          onClick={() => this.props.setDisplay('work')}
-        >
-          <span style={{
-            fontWeight: this.props.display === 'work' ? '700' : '300'
-          }}>
-            Work
-          </span>
-          {this.props.time_left && this.props.display === 'work'
-            ? <div
-                className={styles.fill} 
-                style={{
-                  'width': this.props.width,
-                }}
-              >
-              </div>
-            : null
-          }
-        </div>
-        <div onClick={
-            () => this.props.setDisplay('break')
-          }
-        >
-          <span 
-            style={{
-              fontWeight: this.props.display === 'break' ? '700' : '300'
-            }}
-          >
-            Break
-          </span>
-          {this.props.time_left && this.props.display === 'break'
-            ? <div
-                className={styles.fill} 
-                style={{
-                  'width': this.props.width,
-                }}
-              >
-              </div>
-            : null
-          }
-        </div>
-        <div onClick={
-            () => this.props.setDisplay('lbreak')
-          }
-        >
-          <span style={{
-            fontWeight: this.props.display === 'lbreak' ? '700' : '300'
-          }}>
-            Longer Break
-          </span>
-          {this.props.time_left && this.props.display === 'lbreak'
-            ? <div 
-                className={styles.fill} 
-                style={{
-                  'width': this.props.width,
-                }}
-              >
-              </div>
-            : null
-          }
-        </div>
+function SessionTop(props) {
+  return (
+    <div className={styles.top}>
+      <div onClick={() => props.setDisplay('work')}>
+        <span style={{fontWeight: props.display === 'work' ? '700' : '300'}}>
+          Work
+        </span>
+        {props.time_left && props.display === 'work'
+          ? <div className={styles.fill} style={{'width': props.width}}></div>
+          : null
+        }
       </div>
-    )
-  }
+      <div onClick={() => props.setDisplay('break')}>
+        <span style={{fontWeight: props.display === 'break' ? '700' : '300'}}>
+          Break
+        </span>
+        {props.time_left && props.display === 'break'
+          ? <div className={styles.fill} style={{'width': props.width}}></div>
+          : null
+        }
+      </div>
+      <div onClick={() => props.setDisplay('lbreak')}>
+        <span style={{fontWeight: props.display === 'lbreak' ? '700' : '300'}}>
+          Longer Break
+        </span>
+        {props.time_left && props.display === 'lbreak'
+          ? <div className={styles.fill} style={{'width': props.width}}></div>
+          : null
+        }
+      </div>
+    </div>
+  )
 }
 
 export default Session;
