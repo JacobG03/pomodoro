@@ -25,20 +25,16 @@ class Pomodoros extends React.Component {
       }
     }
     this.setDisplay.bind(this)
-    this.updateStats.bind(this)
   }
 
-  setDisplay = name => {
-    this.setState({display: name})
+  setDisplay = (name, update) => {
+    let new_sessions = this.state.sessions;
+    if (update) {
+      new_sessions[this.state.display].times = this.state.sessions[this.state.display].times + 1
+    }
+    this.setState({display: name, sessions: new_sessions})
   }
 
-  updateStats = () => {
-    let new_sessions = this.state.sessions
-    new_sessions[this.state.display].times = this.state.sessions[this.state.display].times + 1
-    this.setState({sessions: new_sessions})
-    // If logged in save in database
-  }
-  
   render() {
     return (
       <div className='wrapper'>
@@ -47,7 +43,6 @@ class Pomodoros extends React.Component {
           time={this.props.settings[`${this.state.display}_time`] * 60}
           setDisplay={this.setDisplay}
           display={this.state.display}
-          updateStats={this.updateStats}
           user={this.props.user}
           settings={this.props.settings}
         />

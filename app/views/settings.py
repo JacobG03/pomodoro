@@ -16,9 +16,9 @@ def get_settings():
     return jsonify({
       'settings': {
         'work_time': 1,
-        'break_time': 5,
-        'lbreak_time': 10,
-        'lbreak_interval': 4
+        'break_time': 1,
+        'lbreak_time': 1,
+        'lbreak_interval': 2
       }
     }), 200
   

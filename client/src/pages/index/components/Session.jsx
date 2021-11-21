@@ -18,20 +18,6 @@ class Session extends React.Component {
   }
 
   componentDidUpdate(prev) {
-    // when timer ends -> updates sessions, restarts timer
-    if (this.state.time_left === 0 && this.props.display === prev.display) {
-      this.setState({timer: null, width: '100%', time_left: this.props.time})
-      if (this.props.display === 'work') {
-        if (this.props.session.times % this.props.settings.lbreak_interval) {
-          this.props.setDisplay('lbreak')
-        } else {
-          this.props.setDisplay('break')
-        }
-      } else {
-        this.props.setDisplay('work')
-      }
-      this.props.updateStats()
-    }
     // on display change -> update session, reset timer
     if (prev.display !== this.props.display) {
       clearInterval(this.state.timer)
@@ -63,6 +49,7 @@ class Session extends React.Component {
     if (this.props.user) {
       this.socket.emit('delete session', {username: this.props.user.username})
     }
+    this.socket.close()
   }
   
   // Credits: https://stackoverflow.com/a/31687097/15760175
@@ -89,6 +76,18 @@ class Session extends React.Component {
           time_left: this.state.time_left - 1,
           width: this.scaleWidth(this.state.time_left, 0, 100, 0, this.props.time)
         })
+      } else {
+        // when timer ends -> updates sessions, restarts timer
+        clearInterval(this.state.timer)
+        if (this.props.display === 'work') {
+          if (this.props.session.times % this.props.settings.lbreak_interval) {
+            this.props.setDisplay('lbreak', true)
+          } else {
+            this.props.setDisplay('break', true)
+          }
+        } else {
+          this.props.setDisplay('work', true)
+        }
       }
     }, 1000)
     // send session
@@ -165,7 +164,7 @@ class Session extends React.Component {
 function SessionTop(props) {
   return (
     <div className={styles.top}>
-      <div onClick={() => props.setDisplay('work')}>
+      <div onClick={() => props.setDisplay('work', false)}>
         <span style={{fontWeight: props.display === 'work' ? '700' : '300'}}>
           Work
         </span>
@@ -174,7 +173,7 @@ function SessionTop(props) {
           : null
         }
       </div>
-      <div onClick={() => props.setDisplay('break')}>
+      <div onClick={() => props.setDisplay('break', false)}>
         <span style={{fontWeight: props.display === 'break' ? '700' : '300'}}>
           Break
         </span>
@@ -183,7 +182,7 @@ function SessionTop(props) {
           : null
         }
       </div>
-      <div onClick={() => props.setDisplay('lbreak')}>
+      <div onClick={() => props.setDisplay('lbreak', false)}>
         <span style={{fontWeight: props.display === 'lbreak' ? '700' : '300'}}>
           Longer Break
         </span>

@@ -31,6 +31,8 @@ class HomePage extends React.Component {
     .catch(error => console.log(error))
   }
   
+  // Session and new component for Settings will be replaced based on which one should be rendered
+  // while user is in settings he will still see the sessionTop and otherSEssions
 
   render () {
     return (
