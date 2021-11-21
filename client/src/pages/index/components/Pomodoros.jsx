@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Session from './Session'
-import OtherPomodoros from './OtherPomodoros'
+import OtherSessions from './OtherSessions'
 
 
 class Pomodoros extends React.Component {
@@ -50,7 +50,7 @@ class Pomodoros extends React.Component {
           updateStats={this.updateStats}
           user={this.props.user}
         />
-        <OtherPomodoros 
+        <OtherSessions 
           user={this.props.user}
         />
       </div>

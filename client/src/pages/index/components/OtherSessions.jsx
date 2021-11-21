@@ -1,9 +1,9 @@
-import styles from './OtherPomodoros.module.css'
+import styles from './OtherSessions.module.css'
 import React from 'react'
 import { io } from 'socket.io-client'
 
 
-class OtherPomodoros extends React.Component {
+class OtherSessions extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -46,15 +46,15 @@ class OtherPomodoros extends React.Component {
 
   render() {
     return (
-      <div className={styles.otherpomodoros}>
-        {this.state.sessions.map(session => <OtherPomodoro session={session} key={session.user.username} />)}
+      <div className={styles.otherSessions}>
+        {this.state.sessions.map(session => <OtherSession session={session} key={session.user.username} />)}
       </div>
     )
   }
 }
 
 
-class OtherPomodoro extends React.Component {
+class OtherSession extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -71,4 +71,4 @@ class OtherPomodoro extends React.Component {
 }
 
 
-export default OtherPomodoros;
+export default OtherSessions;

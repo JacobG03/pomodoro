@@ -16,11 +16,7 @@ class Session extends React.Component {
   }
   
   componentDidUpdate(prev) {
-    // When type of sessions changes (e.g work -> break)
-    if (prev.time !== this.props.time) {
-      this.setState({time_left: this.props.time})
-    }
-    // on display change
+    // on display change -> update session, reset timer
     if (prev.display !== this.props.display) {
       clearInterval(this.state.timer)
       this.setState({width: '100%', time_left: this.props.time, timer: null})
@@ -35,13 +31,13 @@ class Session extends React.Component {
         })
       }
     }
-    // updates sessions, restarts timer
+    // when timer ends -> updates sessions, restarts timer
     if (this.state.time_left === 0) {
       this.props.updateStats()
       this.setState({width: '100%', time_left: this.props.time})
       this.stop()
     } 
-    // deletes session on user logout
+    // when user logs out -> deletes session
     if (prev.user !== this.props.user && !this.props.user) {
       this.socket.emit('delete session', {username: prev.user.username})
       this.stop()
