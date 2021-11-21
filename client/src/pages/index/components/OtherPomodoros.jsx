@@ -14,12 +14,20 @@ class OtherPomodoros extends React.Component {
 
   componentDidMount() {
     this.socket.open()
+    this.syncSessions()
     this.connectSocket()
+    this.socket.on('sync sessions', data => {
+      console.log(data)
+      this.setState({sessions: data})
+    })
+  }
+
+  syncSessions() {
+    this.socket.emit('req all sessions')
   }
 
   connectSocket() {
     this.socket.on('add sessions', sessions => {
-      console.log(sessions)
       this.setState({sessions: sessions})
     })
   }

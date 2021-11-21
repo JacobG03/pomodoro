@@ -32,8 +32,22 @@ def disconnect():
 @socketio.on('receive session')
 def receive_session(data):
   sessions = validateSessions(data)
-  print(sessions)
   emit('add sessions', sessions, broadcast=True)
+
+
+@socketio.on('delete session')
+def delete_session(data):
+  username = data['username']
+  for index, session in enumerate(sessions):
+    if session['user']['username'] == username:
+      del sessions[index]
+      emit('sync sessions', sessions, broadcast=True)
+      return True
+
+
+@socketio.on('req all sessions')
+def req_all_sessions():
+  emit('sync sessions', sessions)
 
 
 def validateSessions(data):
