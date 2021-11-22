@@ -2,12 +2,58 @@
   width: 100%;
   height: fit-content;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--color-main);
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem 0;
 }
 
 .session {
+  width: 280px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  background-color: var(--color-main);
+}
+
+.top {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.top > img {
+  width: 2rem;
+  border-radius: var(--border-radius);
+}
+
+.display {
+  position: relative;
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fill {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+  z-index: -1;
+  background-color: var(--color-accent-dark);
+  border-radius: var(--border-radius);
+  transition: 200ms;
+}
+
+.top > div:hover .fill {
+  background-color: var(--color-accent);
 }

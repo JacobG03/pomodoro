@@ -34,6 +34,7 @@ class Session extends React.Component {
           user: this.props.user,
           times: this.props.session.times,
           name: this.props.session.name,
+          total_time: this.props.time,
           timestamp: timestamp.getTime() / 1000
         })
       }
@@ -68,6 +69,7 @@ class Session extends React.Component {
         user: this.props.user,
         times: this.props.session.times,
         name: this.props.session.name,
+        total_time: this.props.time,
         timestamp: timestamp.getTime() / 1000
       })
     }
@@ -108,6 +110,7 @@ class Session extends React.Component {
         user: this.props.user,
         times: this.props.session.times,
         name: this.props.session.name,
+        total_time: this.props.time,
         timestamp: timestamp.getTime() / 1000
       })
     }

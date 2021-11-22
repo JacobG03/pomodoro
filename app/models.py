@@ -13,7 +13,7 @@ class User(db.Model):
   avatar = db.Column(db.String(512), nullable=True)
 
   def set_avatar(self):
-    self.avatar = f'https://eu.ui-avatars.com/api/?size=128&name={self.username}&background=random&length=2'
+    self.avatar = f'https://avatarfiles.alphacoders.com/199/199027.jpg'
 
 
 class Settings(db.Model):
