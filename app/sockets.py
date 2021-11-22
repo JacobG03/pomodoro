@@ -33,6 +33,8 @@ def disconnect():
 def receive_session(data):
   sessions = validateSessions(data)
   emit('add sessions', sessions, broadcast=True)
+  emit('update active', {'amount': len(sessions)}, broadcast=True)
+  return
 
 
 @socketio.on('delete session')
@@ -42,12 +44,20 @@ def delete_session(data):
     if session['user']['username'] == username:
       del sessions[index]
       emit('sync sessions', sessions, broadcast=True)
-      return True
+      break
+      
+  emit('update active', {'amount': len(sessions)}, broadcast=True)
+  return True
 
 
 @socketio.on('req all sessions')
 def req_all_sessions():
   emit('sync sessions', sessions)
+
+
+@socketio.on('get active')
+def get_active():
+  emit('update active', {'amount': len(sessions)}, broadcast=True)
 
 
 def validateSessions(data):

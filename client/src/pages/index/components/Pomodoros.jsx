@@ -2,6 +2,7 @@ import React from 'react'
 
 import Session from './Session'
 import OtherSessions from './OtherSessions'
+import UnAuthOther from './UnAuthOther'
 
 
 class Pomodoros extends React.Component {
@@ -50,7 +51,7 @@ class Pomodoros extends React.Component {
         ? <OtherSessions 
             user={this.props.user}
           />
-        : <span>Sign In to see other users activity</span>
+        : <UnAuthOther />
         }
       </div>
     )

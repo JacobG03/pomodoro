@@ -1,3 +1,4 @@
+import styles from './HomePage.module.css'
 import React from 'react';
 
 import Navbar from './components/Navbar';
@@ -41,13 +42,13 @@ class HomePage extends React.Component {
           user={this.props.user}
           signOut={this.props.signOut}
         />
-        <div className='main'>
+        <div className={styles.main}>
           {this.state.settings
           ? <Pomodoros 
               settings={this.state.settings}
               user={this.props.user}
             />
-          : <span>Loading pomodoros settings</span>
+          : <h1>No settings </h1>
           }
         </div>
       </>
