@@ -6,3 +6,8 @@
   align-items: center;
   background-color: var(--color-main);
 }
+
+.session {
+  display: flex;
+  flex-direction: column;
+}

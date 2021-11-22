@@ -46,9 +46,12 @@ class Pomodoros extends React.Component {
           user={this.props.user}
           settings={this.props.settings}
         />
-        <OtherSessions 
-          user={this.props.user}
-        />
+        {this.props.user
+        ? <OtherSessions 
+            user={this.props.user}
+          />
+        : <span>Sign In to see other users activity</span>
+        }
       </div>
     )
   }

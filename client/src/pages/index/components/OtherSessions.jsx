@@ -12,25 +12,27 @@ class OtherSessions extends React.Component {
     this.socket = io('http://localhost:5000/');
   }
 
-  componentDidMount() {
-    this.socket.emit('req all sessions')
-    this.connectSockets()
-  }
-
-  componentDidUpdate(prev) {
-    if (prev.user !== this.props.user && prev.user) {
-      this.socket.close()
-      this.connectSockets()
-      this.socket.emit('delete session', {username: prev.user.username})
+  componentDidUpdate() {
+    console.log(this.state.sessions)
+    for (let i = 0; i < this.state.sessions.length; i++) {
+      console.log(this.state.sessions[i].timestamp)
     }
+  }
+   
+  componentDidMount() {
+    this.socket.open()
+    this.connectSockets()
+    this.socket.emit('delete session', {username: this.props.user.username})
+    this.socket.emit('req all sessions')
   }
 
   componentWillUnmount() {
+    this.socket.emit('delete session', {username: this.props.user.username})
+    this.socket.removeAllListeners()
     this.socket.close();
   }
 
   connectSockets() {
-    this.socket.open()
     this.socket.on('sync sessions', data => {
       this.setState({sessions: data})
     })
@@ -52,14 +54,39 @@ class OtherSessions extends React.Component {
 class OtherSession extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      time_left: null,
+    }
+    this.updateTime.bind(this)
+  }
+
+  componentDidMount() {
+    // set time left
+    this.updateTime()
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.session.time_left !== this.props.session.time_left) {
+      this.updateTime()
+    }
+  }
+
+  updateTime() {
+    let current = new Date()
+    let time_diff = Math.abs(this.props.session.timestamp - (current.getTime() / 1000 ))
+    this.setState({time_left: (this.props.session.time_left - time_diff).toFixed()})
   }
 
   render() {
+    if (!this.state.time_left) {
+      return null;
+    }
     return (
-      <div>
-        <span>{this.props.session.user.username}</span>
-        <span>{this.props.session.time_left}</span>
+      <div className={styles.session}>
+        <span>Time left: {this.state.time_left}</span>
+        <span>Name: {this.props.session.name}</span>
+        <span>Host: {this.props.session.user.username}</span>
+        <span>Times: {this.props.session.times}</span>
       </div>
     )
   }

@@ -17,28 +17,31 @@ class Session extends React.Component {
     this.stop.bind(this)
   }
 
+  componentDidMount() {
+    this.socket.open()
+  }
+
   componentDidUpdate(prev) {
     // on display change -> update session, reset timer
     if (prev.display !== this.props.display) {
       clearInterval(this.state.timer)
       if (this.props.user) {
+        let timestamp = new Date()
         this.socket.emit('receive session', {
           time_left: this.props.time,
           active: false,
           display: this.props.display,
           user: this.props.user,
           times: this.props.session.times,
-          name: this.props.session.name
+          name: this.props.session.name,
+          timestamp: timestamp.getTime() / 1000
         })
       }
       this.setState({width: '100%', time_left: this.props.time, timer: null})
     }
-    // when user logs out -> deletes session
+    // when user logs out -> reset timers
     if (prev.settings !== this.props.settings) {
       clearInterval(this.state.timer)
-      if (prev.user) {
-        this.socket.emit('delete session', {username: prev.user.username})
-      }
       this.setState({time_left: this.props.time, width: '100%', timer: null})
       return
     }
@@ -46,9 +49,6 @@ class Session extends React.Component {
   
   componentWillUnmount() {
     clearInterval(this.state.timer)
-    if (this.props.user) {
-      this.socket.emit('delete session', {username: this.props.user.username})
-    }
     this.socket.close()
   }
   
@@ -60,13 +60,15 @@ class Session extends React.Component {
   
   start() {
     if (this.props.user) {
+      let timestamp = new Date()
       this.socket.emit('receive session', {
         time_left: this.state.time_left,
         active: true,
         display: this.props.display,
         user: this.props.user,
         times: this.props.session.times,
-        name: this.props.session.name
+        name: this.props.session.name,
+        timestamp: timestamp.getTime() / 1000
       })
     }
 
@@ -98,13 +100,15 @@ class Session extends React.Component {
   stop() {
     clearInterval(this.state.timer)
     if (this.props.user) {
+      let timestamp = new Date()
       this.socket.emit('receive session', {
         time_left: this.state.time_left,
         active: false,
         display: this.props.display,
         user: this.props.user,
         times: this.props.session.times,
-        name: this.props.session.name
+        name: this.props.session.name,
+        timestamp: timestamp.getTime() / 1000
       })
     }
     this.setState({timer: null})
