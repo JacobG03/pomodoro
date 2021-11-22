@@ -44,7 +44,12 @@ class OtherSessions extends React.Component {
   render() {
     return (
       <div className={styles.otherSessions}>
-        {this.state.sessions.map(session => <OtherSession session={session} key={session.user.username} />)}
+        {this.state.sessions.map(session => 
+          <OtherSession
+            user={this.props.user}
+            session={session}
+            key={session.user.username}
+        />)}
       </div>
     )
   }
@@ -57,7 +62,8 @@ class OtherSession extends React.Component {
     this.state = {
       time_left: null,
       timer: null,
-      width: this.props.session.width
+      width: this.props.session.width,
+      active: this.props.session.active
     }
     this.updateTime.bind(this)
   }
@@ -76,11 +82,14 @@ class OtherSession extends React.Component {
       this.updateTime()
     }
     // stop/start timer depending on updated 'active' state
-    if (prev.session.active !== this.props.session.active && !this.props.session.active) {
-      this.stop()
-    } else if (prev.session.active !== this.props.session.active && this.props.session.active) {
-      this.start()
-    }
+    if (prev.session.active !== this.props.session.active) {
+      if (!this.props.session.active) {
+        this.stop()
+      } else if (this.props.session.active) {
+        this.start()
+      }
+      this.setState({active: this.props.session.active})
+    } 
   }
 
   scaleWidth(unscaledNum, minAllowed, maxAllowed, min, max) {
@@ -137,7 +146,7 @@ class OtherSession extends React.Component {
   }
 
   render() {
-    if (!this.state.time_left) {
+    if (!this.state.time_left || this.props.user.username === this.props.session.user.username) {
       return null;
     }
     return (
@@ -147,11 +156,13 @@ class OtherSession extends React.Component {
           <span>{this.props.session.user.username}</span>
         </div>
         <div className={styles.display}>
-          <span>{this.props.session.name}</span>
-          <div className={styles.fill} style={{'width': this.state.width}}></div>
+          <span>{this.props.session.active ? this.props.session.name: 'Paused'}</span>
+            <div
+              className={styles.fill}
+              style={{'width': this.props.session.active ? this.state.width: '0%'}}>
+            </div>
         </div>
         <span>{this.formatTime()}</span>
-        <span>Times: {this.props.session.times}</span>
       </div>
     )
   }

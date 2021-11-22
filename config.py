@@ -18,7 +18,7 @@ class Config(object):
   JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", 'local-secret')
   JWT_TOKEN_LOCATION = ['cookies']
   JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=1800)
-  JWT_COOKIE_SECURE = False
+  JWT_COOKIE_SECURE = True
   JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=15)
   JWT_COOKIE_CSRF_PROTECT = False   # Change to True on Production build 
   JWT_ACCESS_CSRF_HEADER_NAME = "X-CSRF-TOKEN-ACCESS"
