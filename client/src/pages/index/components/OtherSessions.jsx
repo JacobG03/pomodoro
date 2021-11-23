@@ -92,6 +92,10 @@ class OtherSession extends React.Component {
     } 
   }
 
+  componentWillUnmount() {
+    clearInterval(this.state.timer)
+  }
+
   scaleWidth(unscaledNum, minAllowed, maxAllowed, min, max) {
     let outcome = (maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed;
     return `${outcome}%`

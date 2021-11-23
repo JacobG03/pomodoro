@@ -13,6 +13,7 @@ class HomePage extends React.Component {
     this.state = {
       settings: null
     }
+    this.setSettings.bind(this)
   }
 
   componentDidMount() {
@@ -22,6 +23,10 @@ class HomePage extends React.Component {
   componentDidUpdate(prev) {
     if (prev.user !== this.props.user)
       this.fetchSettings()
+  }
+
+  setSettings = data => {
+    this.setState({settings: data})
   }
 
   fetchSettings() {
@@ -41,6 +46,8 @@ class HomePage extends React.Component {
         <Navbar 
           user={this.props.user}
           signOut={this.props.signOut}
+          settings={this.state.settings}s
+          setSettings={this.setSettings}
         />
         <div className={styles.main}>
           {this.state.settings

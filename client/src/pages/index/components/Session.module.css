@@ -34,8 +34,6 @@
   border-radius: var(--border-radius);
   transition: var(--speed) ease;
   background-color: var(--color-main);
-  box-shadow: var(--depth),
-              var(--depth-shadow);
 }
 
 .fill {

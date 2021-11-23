@@ -1,0 +1,43 @@
+.SettingsOpen {
+  width: 100%;
+  height: fit-content;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.SettingsClosed {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-accent-dark);
+  cursor: pointer;
+  z-index: 3;
+  font-size: 3rem;
+  transition: 200ms;
+}
+
+.SettingsClosed.active {
+  transform: translateY(-5px);
+  color: var(--color-accent);
+}
+
+.SettingsClosed.active > svg {
+  transition: 600ms;
+  font-size: 4rem;
+}
+
+
+.UserOpen {
+  width: 100%;
+  height: fit-content;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}

@@ -5,32 +5,43 @@
 
 .content {
   width: 100%;
-  height: 8rem;
+  height: 6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
 }
 
 .right {
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .right > button {
-  height: 2rem;
+  height: 3rem;
+  color: var(--color-text);
+  font-weight: bolder;
 }
 
+
 .avatar {
-  width: 2rem;
-  background-color: var(--color-accent);
-  padding: 2px;
+  width: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border-radius: var(--border-radius);
+  background-color: var(--color-background);
+  transition: 200ms;
+}
+
+.avatar.active {
+  transition: 600ms;
+  transform: translateY(-2px);
+  width: 4rem;
 }
 
 .avatar > img {
