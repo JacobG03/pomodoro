@@ -19,16 +19,14 @@ The Pomodoro Technique is a time management method developed by Francesco Cirill
 5. Users can share their pomodoro sessions with other users to do joint sessions
 
 
-# Time spent on this project so far - *13 hours*
 
-# Todo
-## Views
-- [ ] CRUD Settings
-## Sockets
-- [ ] Implement working socket events
+# TODO
+- [ ] Notifications (context)
+  - always first under navbar
 
-* Have the 'oldest' user update new users sessions
-  With each new connection receive data from the oldest user 
-- [ ] Index Page connects to socketio and sets sessions state with received pomodoro sessions
-  - [ ] On socketio events update sessions state
-  - [ ] Display other users sessions based on state
+- [ ] Pop up windows when changing pomorodos
+- [ ] Sharing sessions
+  Click join on 'other session' and main session will change into a sligthly
+  altered version. Users will see each others icons, who is the 'host',
+  how many session each user been at (e.g: 'work': 2)
+  - [ ] Chat during break time

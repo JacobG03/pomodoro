@@ -12,7 +12,9 @@ export class UserOpen extends React.Component {
   render() {
     return (
       <div className={styles.UserOpen}>
-        <span>User Open</span>
+        <span>Status change</span>
+        <span>Stats view</span>
+        <span>Sign out</span>
       </div>
     )
   }
@@ -44,7 +46,13 @@ export class SettingsOpen extends React.Component {
   render() {
     return (
       <div className={styles.SettingsOpen}>
-        <span>Settings Displayed</span>
+        <span>Change username</span>
+        <span>Change avatar</span>
+        <span>Timers Change (1 - 60 min)</span>
+        <span>Change session names</span>
+        <span>Change Email</span>
+        <span>Change password</span>
+        <span>Delete Account</span>
       </div>
     )
   }

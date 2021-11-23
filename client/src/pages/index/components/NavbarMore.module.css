@@ -21,8 +21,12 @@
   transition: 200ms;
 }
 
+.SettingsClosed:hover {
+  color: var(--color-accent);
+}
+
 .SettingsClosed.active {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   color: var(--color-accent);
 }
 
