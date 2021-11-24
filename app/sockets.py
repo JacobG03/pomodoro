@@ -39,9 +39,9 @@ def receive_session(data):
 
 @socketio.on('delete session')
 def delete_session(data):
-  username = data['username']
+  id = data['id']
   for index, session in enumerate(sessions):
-    if session['user']['username'] == username:
+    if session['user']['id'] == id:
       del sessions[index]
       emit('sync sessions', sessions, broadcast=True)
       break
@@ -63,7 +63,7 @@ def get_active():
 def validateSessions(data):
   # update existing user session
   for index, session in enumerate(sessions):
-    if session['user']['username'] == data['user']['username']:
+    if session['user']['id'] == data['user']['id']:
       sessions[index] = data
       return sessions
   # add new user session

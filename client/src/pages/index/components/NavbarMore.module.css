@@ -31,23 +31,32 @@
 }
 
 .SettingsClosed.active > svg {
-  transition: 600ms;
+  transition: 400ms;
   font-size: 4rem;
 }
 
 
 
 .UserOpen {
+  position: relative;
   width: 100%;
   height: fit-content;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  gap: 4rem 1rem;
 }
 
+.UserOpen > button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+
 .ChangeUsername {
+  width: 80%;
+  height: 2rem;
   display: flex;
   flex-direction: row;
   align-items: center;

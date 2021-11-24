@@ -21,7 +21,7 @@ def index():
 
   return jsonify({
     'user': {
-      'is_auth': True,
+      'id': current_user.id,
       'username': current_user.username,
       'avatar': current_user.avatar
     }

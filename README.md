@@ -21,7 +21,9 @@ The Pomodoro Technique is a time management method developed by Francesco Cirill
 
 
 # TODO
-- [ ] Change user validation when it comes to session sharing 
+- [ ] Fix issue with other session getting removed and      re-appearing when user sessions ends
+- [ ] Auto pomodoro session change on finish
+- [X] Change user validation when it comes to session sharing 
       from username to id (reason being the ability to change usernames)
 - [ ] Notifications (context)
   - always first under navbar

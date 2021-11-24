@@ -18,7 +18,7 @@ function Navbar(props) {
             </Link>
           </div>
           <div className={styles.right}>
-            {
+            { 
               props.user
               ? <>
                   <Settings
@@ -43,17 +43,18 @@ function Navbar(props) {
           </div>
         </div>
       </div>
-      {displayUser
+      {displayUser && props.user
       ? <div className='wrapper'>
           <UserOpen
             user={props.user}
             setDisplay={setDisplayUser}
             updateUsername={props.updateUsername}
+            signOut={props.signOut}
           />
         </div>
       : null
       }
-      {displaySettings
+      {displaySettings && props.user
       ? <div className='wrapper'>
           <SettingsOpen settings={props.settings}
             setSettings={props.setSettings}

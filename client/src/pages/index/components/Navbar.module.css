@@ -39,7 +39,7 @@
 }
 
 .avatar.active {
-  transition: 600ms;
+  transition: 400ms;
   transform: translateY(-2px);
   width: 4rem;
 }

@@ -15,12 +15,12 @@ class OtherSessions extends React.Component {
   componentDidMount() {
     this.socket.open()
     this.connectSockets()
-    this.socket.emit('delete session', {username: this.props.user.username})
+    this.socket.emit('delete session', {id: this.props.user.id})
     this.socket.emit('req all sessions')
   }
 
   componentWillUnmount() {
-    this.socket.emit('delete session', {username: this.props.user.username})
+    this.socket.emit('delete session', {id: this.props.user.id})
     this.socket.removeAllListeners()
     this.socket.close();
   }
@@ -41,7 +41,7 @@ class OtherSessions extends React.Component {
           <OtherSession
             user={this.props.user}
             session={session}
-            key={session.user.username}
+            key={session.user.id}
         />)}
       </div>
     )
@@ -143,7 +143,7 @@ class OtherSession extends React.Component {
   }
 
   render() {
-    if (!this.state.time_left || this.props.user.username === this.props.session.user.username) {
+    if (!this.state.time_left || this.props.user.id === this.props.session.user.id) {
       return null;
     }
     return (

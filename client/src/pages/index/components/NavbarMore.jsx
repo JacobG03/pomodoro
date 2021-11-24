@@ -17,7 +17,7 @@ export class UserOpen extends React.Component {
           user={this.props.user}
         />
         <span>Change avatar</span>
-        <span>Sign out</span>
+        <button onClick={() => this.props.signOut()}>Sign out</button>
       </div>
     )
   }
