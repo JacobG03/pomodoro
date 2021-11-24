@@ -168,6 +168,7 @@ class Session extends React.Component {
   }
 }
 
+
 function SessionTop(props) {
   return (
     <div className={styles.top}>

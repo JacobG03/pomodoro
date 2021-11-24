@@ -30,7 +30,7 @@ class HomePage extends React.Component {
   }
 
   fetchSettings() {
-    axios.get('/settings')
+    axios.get('/settings/pomodoros')
     .then(res => {
       this.setState({settings: res.data.settings})
     })
@@ -46,8 +46,9 @@ class HomePage extends React.Component {
         <Navbar 
           user={this.props.user}
           signOut={this.props.signOut}
-          settings={this.state.settings}s
+          settings={this.state.settings}
           setSettings={this.setSettings}
+          updateUsername={this.props.updateUsername}
         />
         <div className={styles.main}>
           {this.state.settings

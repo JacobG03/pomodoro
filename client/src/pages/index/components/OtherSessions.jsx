@@ -12,13 +12,6 @@ class OtherSessions extends React.Component {
     this.socket = io('http://localhost:5000/');
   }
 
-  componentDidUpdate() {
-    console.log(this.state.sessions)
-    for (let i = 0; i < this.state.sessions.length; i++) {
-      console.log(this.state.sessions[i].timestamp)
-    }
-  }
-   
   componentDidMount() {
     this.socket.open()
     this.connectSockets()

@@ -1,7 +1,7 @@
 import styles from './NavbarMore.module.css'
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faCog, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 export class UserOpen extends React.Component {
@@ -12,12 +12,55 @@ export class UserOpen extends React.Component {
   render() {
     return (
       <div className={styles.UserOpen}>
-        <span>Status change</span>
-        <span>Stats view</span>
+        <ChangeUsername 
+          updateUsername={this.props.updateUsername}
+          user={this.props.user}
+        />
+        <span>Change avatar</span>
         <span>Sign out</span>
       </div>
     )
   }
+}
+
+
+function ChangeUsername(props) {
+  const [display, setDisplay] = useState(false)
+  const username = useRef(null)
+
+  const updateUsername = username => {
+    let data = {'username': username}
+    fetch('/settings/username', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (res.status === 200) {
+        props.updateUsername(username)
+        setDisplay(!display)
+      }
+      return res.json()
+    })
+    .then(res => console.log(res))
+    .catch(error => console.log(error))
+  }
+
+  if (display) {
+    return (
+      <div className={styles.ChangeUsername}>
+        <input type='text' ref={username}/>
+        <FontAwesomeIcon icon={faCheck} onClick={() => updateUsername(username.current.value)}/>
+        <FontAwesomeIcon icon={faTimes} onClick={() => setDisplay(!display)} />
+      </div>
+    )
+  }
+  return (
+    <div className={styles.ChangeUsername}>
+      <span>Username:</span>
+      <span>{props.user.username}</span>
+      <FontAwesomeIcon icon={faEdit} onClick={() => setDisplay(!display)}/>
+    </div>
+  )
 }
 
 
@@ -46,10 +89,6 @@ export class SettingsOpen extends React.Component {
   render() {
     return (
       <div className={styles.SettingsOpen}>
-        <span>Change username</span>
-        <span>Change avatar</span>
-        <span>Timers Change (1 - 60 min)</span>
-        <span>Change session names</span>
         <span>Change Email</span>
         <span>Change password</span>
         <span>Delete Account</span>

@@ -48,6 +48,7 @@ function Navbar(props) {
           <UserOpen
             user={props.user}
             setDisplay={setDisplayUser}
+            updateUsername={props.updateUsername}
           />
         </div>
       : null

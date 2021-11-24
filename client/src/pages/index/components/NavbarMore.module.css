@@ -36,6 +36,7 @@
 }
 
 
+
 .UserOpen {
   width: 100%;
   height: fit-content;
@@ -44,4 +45,15 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+
+.ChangeUsername {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ChangeUsername > svg {
+  cursor: pointer;
 }

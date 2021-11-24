@@ -39,3 +39,16 @@ class Settings_Schema(Schema):
   break_time = fields.Int(strict=True, required=True)
   longer_break_time = fields.Int(strict=True, required=True)
   longer_break_interval = fields.Int(strict=True, required=True)
+  
+
+class UsernameSchema(Schema):
+  username = fields.Str(required=True, validate=Length(3, 64))
+
+  @validates('username')
+  def validateUsername(self, value):
+    username_regex = re.compile(r'^(?![-._])(?!.*[_.-]{2})[\w.-]{3,64}(?<![-._])$')
+    if username_regex.match(value) == None:
+      raise ValidationError('Username contains invalid characters')
+    # Case insensitive query filter
+    elif User.query.filter(func.lower(User.username) == func.lower(value)).first():
+      raise ValidationError('Username is taken. Try a different one')

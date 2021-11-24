@@ -3,15 +3,35 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import current_user, jwt_required
 from app.models import Settings
 from app.schemas import Settings_Schema
+from app.schemas import UsernameSchema
 
 
 settings = Blueprint('settings', __name__, url_prefix='/api/settings')
 settings_Schema = Settings_Schema()
+usernameSchema = UsernameSchema()
 
 
-@settings.get('/')
+@settings.post('/username')
+@jwt_required()
+def set_username():
+  data = request.get_json(force=True, silent=True)
+  print(data)
+  errors = usernameSchema.validate(data)
+  if errors:
+    return jsonify({'errors': errors}), 400
+  
+  current_user.username = data['username']
+  db.session.add(current_user)
+  db.session.commit()
+  
+  return jsonify({
+    'message': 'Username changed succesfully.'
+  }), 200
+
+
+@settings.get('/pomodoros')
 @jwt_required(optional=True)
-def get_settings():
+def get_pomodoros():
   if not current_user:
     return jsonify({
       'settings': {
@@ -33,9 +53,9 @@ def get_settings():
   }), 200
 
 
-@settings.post('/')
+@settings.post('/pomodoros')
 @jwt_required()
-def update_settings():
+def update_pomodoros():
   # receive data
   data = request.get_json(silent=True)
   # validate data

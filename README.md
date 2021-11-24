@@ -21,12 +21,15 @@ The Pomodoro Technique is a time management method developed by Francesco Cirill
 
 
 # TODO
+- [ ] Change user validation when it comes to session sharing 
+      from username to id (reason being the ability to change usernames)
 - [ ] Notifications (context)
   - always first under navbar
-
+- [ ] Settings
+- [ ] User Stats / info
 - [ ] Pop up windows when changing pomorodos
 - [ ] Sharing sessions
   Click join on 'other session' and main session will change into a sligthly
   altered version. Users will see each others icons, who is the 'host',
   how many session each user been at (e.g: 'work': 2)
-  - [ ] Chat during break time
+  - [ ] Chat during break time *
