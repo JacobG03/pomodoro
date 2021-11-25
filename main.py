@@ -4,6 +4,7 @@ from app.views.settings import settings
 from app.views.auth import auth
 from app.views.serve import serve
 from app.views.api import api
+import os
 
 
 @app.shell_context_processor
@@ -20,4 +21,4 @@ app.register_blueprint(settings)
 app.register_blueprint(serve)
 
 if __name__ == '__main__':
-  socketio.run(app)
+  socketio.run(app, port=int(os.environ.get('PORT', 5000)))
