@@ -1,7 +1,7 @@
 import './App.css'
 import React from 'react'
 import { 
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route
 } from 'react-router-dom'
@@ -63,7 +63,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route 
             path='/'
@@ -88,7 +88,7 @@ class App extends React.Component {
               <RegisterPage />} 
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     )
   }
 }

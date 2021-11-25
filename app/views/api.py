@@ -8,3 +8,4 @@ def index():
   return {
     'message': 'API seems to be working.'
   }, 200
+  

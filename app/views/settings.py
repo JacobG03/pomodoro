@@ -109,3 +109,5 @@ def update_pomodoros():
   return jsonify({
     'message': 'Pomodoros updated succesfully'
   }), 200
+  
+  
