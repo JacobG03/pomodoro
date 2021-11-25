@@ -32,12 +32,45 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   background-color: var(--color-main);
   margin-bottom: 1rem;
   border-radius: var(--border-radius);
 }
+
+.SettingsOpen > .Pomodoros {
+  width: 75%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Pomodoros > div{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Pomodoros > div > div {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  background-color: var(--color-background);
+}
+
+.Pomodoros > div > div > svg {
+  position: absolute;
+  right: 0.5rem;
+}
+
+.Pomodoros > div > div > input {
+  font-size: 1.5rem;
+}
+
+
+
 
 
 .UserOpen {
@@ -53,8 +86,9 @@
   border-radius: var(--border-radius);
 }
 
-.UserOpen > button {
+.UserOpen > .Logout {
   position: absolute;
+  width: 120px;
   top: 2rem;
   right: 2rem;
   padding: 1rem 1rem;
@@ -63,23 +97,29 @@
 
 .ChangeUsername {
   position: relative;
-  width: 75%;
-  height: 3rem;
+  width: 50%;
+  height: fit-content;
+  padding: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
 }
 
 
 .ChangeAvatar {
   position: relative;
-  width: 75%;
-  height: 3rem;
+  width: 50%;
+  height: fit-content;
+  padding: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
 }
 
 .ChangeAvatar > img {
@@ -90,15 +130,18 @@
 
 .EditIcon {
   position: absolute;
-  right: 0;
+  right: 1rem;
 }
 
-.DeleteAccount {
-  width: 100%;
+.UserOpen > .DeleteButton {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
   height: 3rem;
+  width: 120px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
 }

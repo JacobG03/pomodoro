@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, validates, ValidationError
-from marshmallow.validate import Length
+from marshmallow.validate import Length, Range
 import re
 from app.models import User
 from sqlalchemy import func
@@ -35,10 +35,10 @@ class CreateLoginSchema(Schema):
 
 
 class Settings_Schema(Schema):
-  work_time = fields.Int(strict=True, required=True)
-  break_time = fields.Int(strict=True, required=True)
-  lbreak_time = fields.Int(strict=True, required=True)
-  lbreak_interval = fields.Int(strict=True, required=True)
+  work_time = fields.Int(strict=True, required=True, validate=Range(min=1, max=60))
+  break_time = fields.Int(strict=True, required=True, validate=Range(min=1, max=60))
+  lbreak_time = fields.Int(strict=True, required=True, validate=Range(min=1, max=60))
+  lbreak_interval = fields.Int(strict=True, required=True, validate=Range(min=2, max=60))
   
 
 class UsernameSchema(Schema):

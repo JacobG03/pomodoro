@@ -90,7 +90,7 @@ def get_pomodoros():
 @jwt_required()
 def update_pomodoros():
   # receive data
-  data = request.get_json(silent=True)
+  data = request.get_json(silent=True, force=True)
   # validate data
   errors = settings_Schema.validate(data)
   if errors:

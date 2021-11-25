@@ -57,7 +57,7 @@ class HomePage extends React.Component {
               settings={this.state.settings}
               user={this.props.user}
             />
-          : <h1>No settings </h1>
+          : <h1>No settings</h1>
           }
         </div>
       </>
