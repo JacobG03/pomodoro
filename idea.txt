@@ -1,9 +1,0 @@
-make seperate functions for socket communication/rendering
-
-
-function retrieveSessions(props)
-  sessions, setSessions
-  socket
-  return (
-    <SessionsComponent />
-  )

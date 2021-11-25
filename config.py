@@ -20,6 +20,6 @@ class Config(object):
   JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=1800)
   JWT_COOKIE_SECURE = True
   JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=15)
-  JWT_COOKIE_CSRF_PROTECT = False   # Change to True on Production build 
+  JWT_COOKIE_CSRF_PROTECT = True   # Change to True on Production build 
   JWT_ACCESS_CSRF_HEADER_NAME = "X-CSRF-TOKEN-ACCESS"
   JWT_REFRESH_CSRF_HEADER_NAME = "X-CSRF-TOKEN-REFRESH"
