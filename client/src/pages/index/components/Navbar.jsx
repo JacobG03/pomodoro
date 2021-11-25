@@ -49,6 +49,7 @@ function Navbar(props) {
             user={props.user}
             setDisplay={setDisplayUser}
             updateUsername={props.updateUsername}
+            updateAvatar={props.updateAvatar}
             signOut={props.signOut}
           />
         </div>
@@ -59,6 +60,8 @@ function Navbar(props) {
           <SettingsOpen settings={props.settings}
             setSettings={props.setSettings}
             setDisplay={setDisplaySettings}
+            user={props.user}
+            signOut={props.signOut}
           />
         </div>
       : null

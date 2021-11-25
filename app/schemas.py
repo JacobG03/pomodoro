@@ -37,8 +37,8 @@ class CreateLoginSchema(Schema):
 class Settings_Schema(Schema):
   work_time = fields.Int(strict=True, required=True)
   break_time = fields.Int(strict=True, required=True)
-  longer_break_time = fields.Int(strict=True, required=True)
-  longer_break_interval = fields.Int(strict=True, required=True)
+  lbreak_time = fields.Int(strict=True, required=True)
+  lbreak_interval = fields.Int(strict=True, required=True)
   
 
 class UsernameSchema(Schema):
@@ -52,3 +52,12 @@ class UsernameSchema(Schema):
     # Case insensitive query filter
     elif User.query.filter(func.lower(User.username) == func.lower(value)).first():
       raise ValidationError('Username is taken. Try a different one')
+    
+    
+class AvatarSchema(Schema):
+  avatar = fields.Str(required=True, validate=Length(3, 512))
+  
+  @validates('avatar')
+  def validateAvatar(self, avatar):
+    if avatar[-4:].lower() not in ['.jpg', '.png', '.gif']:
+      raise ValidationError('Format must be: PNG, JPG, GIF')

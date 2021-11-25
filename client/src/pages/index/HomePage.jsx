@@ -49,6 +49,7 @@ class HomePage extends React.Component {
           settings={this.state.settings}
           setSettings={this.setSettings}
           updateUsername={this.props.updateUsername}
+          updateAvatar={this.props.updateAvatar}
         />
         <div className={styles.main}>
           {this.state.settings

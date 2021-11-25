@@ -1,6 +1,6 @@
 .form {
   min-width: 240px;
-  width: 50%;
+  width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@
 }
 
 .form > div > div > input {
-  height: 2rem;
+  height: 3rem;
 }
 
 .form > div > div {

@@ -21,6 +21,7 @@ class App extends React.Component {
     this.signOut.bind(this)
     this.signIn.bind(this)
     this.updateUsername.bind(this)
+    this.updateAvatar.bind(this)
   }
 
   componentDidMount() {
@@ -38,6 +39,13 @@ class App extends React.Component {
     user.username = username
     this.setState({user: user})
   }
+
+  updateAvatar = avatar => {
+    let user = this.state.user
+    user.avatar = avatar
+    this.setState({user: user})
+  }
+
 
   signIn = user => {
     this.setState({user: user})
@@ -64,6 +72,7 @@ class App extends React.Component {
                 user={this.state.user}
                 signOut={this.signOut}
                 updateUsername={this.updateUsername}
+                updateAvatar={this.updateAvatar}
               />} 
           />
           <Route
