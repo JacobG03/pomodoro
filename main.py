@@ -15,10 +15,10 @@ def make_shell_context():
     'Settings': Settings
   }
 
-app.register_blueprint(api)
-app.register_blueprint(auth)
-app.register_blueprint(settings)
-app.register_blueprint(serve)
 
 if __name__ == '__main__':
+  app.register_blueprint(serve)
+  app.register_blueprint(api)
+  app.register_blueprint(auth)
+  app.register_blueprint(settings)
   socketio.run(app, port=int(os.environ.get('PORT', 5000)))
