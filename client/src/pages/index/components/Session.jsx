@@ -11,7 +11,7 @@ class Session extends React.Component {
       timer: null,
       width: null,
     }
-    this.socket = io('http://localhost:5000/')
+    this.socket = io('https://this-pomodoro.herokuapp.com/')
     this.scaleWidth.bind(this)
     this.start.bind(this)
     this.stop.bind(this)

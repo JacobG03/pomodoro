@@ -9,10 +9,10 @@ function LoginForm (props) {
   const navigate = useNavigate()
 
   const onSubmit = data => {
-    axios.post('/auth/login', data)
+    axios.post('/api/auth/login', data)
     .then(res => {
       // get user object
-      axios.get('/auth')
+      axios.get('/api/auth')
       .then(res => {
         // if user object is returned, actually sign in
         if (res.data.user) {

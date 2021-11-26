@@ -30,7 +30,7 @@ class HomePage extends React.Component {
   }
 
   fetchSettings() {
-    axios.get('/settings/pomodoros')
+    axios.get('/api/settings/pomodoros')
     .then(res => {
       this.setState({settings: res.data.settings})
     })

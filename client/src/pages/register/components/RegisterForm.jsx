@@ -9,7 +9,7 @@ function RegisterForm (props) {
   const navigate = useNavigate()
 
   const onSubmit = data => {
-    axios.post('/auth/register', data)
+    axios.post('/api/auth/register', data)
     .then(res => {
       // account created, navigate to login page 
       navigate('/login')

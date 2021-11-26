@@ -1,7 +1,7 @@
 import './App.css'
 import React from 'react'
 import { 
-  HashRouter,
+  BrowserRouter,
   Routes,
   Route
 } from 'react-router-dom'
@@ -25,7 +25,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/auth')
+    axios.get('/api/auth')
     .then(res => {
       this.setState({user: res.data.user})
     })
@@ -52,7 +52,7 @@ class App extends React.Component {
   }
 
   signOut = () => {
-    axios.get('/auth/logout')
+    axios.get('/api/auth/logout')
     .then(res => {
       setTimeout(() => {
         this.setState({user: null})
@@ -63,7 +63,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route 
             path='/'
@@ -88,7 +88,7 @@ class App extends React.Component {
               <RegisterPage />} 
           />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     )
   }
 }

@@ -12,7 +12,7 @@ class UnAuthOther extends React.Component {
     this.state = {
       active: '...'
     }
-    this.socket = io('http://localhost:5000/')
+    this.socket = io('https://this-pomodoro.herokuapp.com/')
   }
 
   componentDidMount() {

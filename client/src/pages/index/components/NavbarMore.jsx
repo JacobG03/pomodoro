@@ -40,7 +40,7 @@ function ChangeUsername(props) {
 
   const updateUsername = username => {
     let data = {'username': username}
-    fetch('/settings/username', {
+    fetch('/api/settings/username', {
       method: 'POST',
       body: JSON.stringify(data)
     })
@@ -85,7 +85,7 @@ function ChangeAvatar(props) {
 
   const updateAvatar = avatar => {
     let data = {'avatar': avatar}
-    fetch('/settings/avatar', {
+    fetch('/api/settings/avatar', {
       method: 'POST',
       body: JSON.stringify(data)
     })
@@ -249,7 +249,7 @@ function DeleteAccount(props) {
   var timeout
 
   const deleteAccount = () => {
-    fetch('/settings/delete')
+    fetch('/api/settings/delete')
     .then(res => res.json())
     .then(res => {
       console.log(res.message)
