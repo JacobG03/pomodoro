@@ -9,7 +9,8 @@ class Config(object):
   # General
   SECRET_KEY = os.environ.get('SECRET_KEY') or '$@ul-tra-safe-secret-key$@'
   # Database config
-  SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+  SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL').replace(
+    'postgres://', 'postgresql://') or \
     'sqlite:///' + os.path.join(basedir, 'app.db')
   SQLALCHEMY_TRACK_MODIFICATIONS = False
   SESSION_TYPE = 'filesystem'
@@ -18,8 +19,8 @@ class Config(object):
   JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", 'local-secret')
   JWT_TOKEN_LOCATION = ['cookies']
   JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=1800)
-  JWT_COOKIE_SECURE = False
+  JWT_COOKIE_SECURE = True
   JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=15)
-  JWT_COOKIE_CSRF_PROTECT = False   # Change to True on Production build 
+  JWT_COOKIE_CSRF_PROTECT = True   # Change to True on Production build 
   JWT_ACCESS_CSRF_HEADER_NAME = "X-CSRF-TOKEN-ACCESS"
   JWT_REFRESH_CSRF_HEADER_NAME = "X-CSRF-TOKEN-REFRESH"
